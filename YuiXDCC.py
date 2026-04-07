@@ -287,7 +287,7 @@ def XDCC_complete(word, word_eol, userdata):
 		match = file_crc.group(0)
 		if len(match) == 10:
 			file_crc = match[1:9]
-			cal_crc = hex(binascii.crc32(open(word[1],'rb').read()))[2:]
+			cal_crc = hex(binascii.crc32(open(word[1],'rb').read()) & 0xFFFFFFFF)[2:].zfill(8)
 			if cal_crc.upper() == file_crc.upper():
 				print("\00310\002Yui>\017 Given CRC-> \00316\026\00302\002%s \017\00316\026\00301= \00302\002%s\017 <-Recv CRC \002\00309MATCH!" % (file_crc.upper(),cal_crc.upper()))
 			else:
